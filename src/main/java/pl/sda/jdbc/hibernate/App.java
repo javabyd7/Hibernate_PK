@@ -1,7 +1,10 @@
 package pl.sda.jdbc.hibernate;
 
 import org.hibernate.Session;
-import pl.sda.jdbc.hibernate.config.HibernateUtil;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import pl.sda.jdbc.hibernate.entity.User;
 
 /**
  * Hello world!
@@ -10,18 +13,18 @@ import pl.sda.jdbc.hibernate.config.HibernateUtil;
 public class App 
 {
     public static void main(String[] args) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+        SessionFactory sf = new Configuration()
+                .configure()
+                .buildSessionFactory();
 
-        String sql = "select version()";
+        Session session = sf.openSession();
 
-        String result = (String) session.createNativeQuery(sql).getSingleResult();
-        System.out.println(result);
+        User user = new User("Tomasz", "Kowalski");
+        session.save(user);
 
-        session.getTransaction().commit();
-        session.close();
+        Transaction transaction = session.beginTransaction();
+        session.save(user);
+        transaction.commit();
 
-
-        HibernateUtil.shutdown();
     }
 }
