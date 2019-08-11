@@ -37,6 +37,12 @@
       <version>5.4.4.Final</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.8</version>
+    </dependency>
+
   </dependencies>
 
   <build>
