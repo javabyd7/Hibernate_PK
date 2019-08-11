@@ -2,7 +2,7 @@ package pl.sda.jdbc.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pl.sda.jdbc.hibernate.config.HibernateUtil;
+import pl.sda.jdbc.hibernate.config.HibernateUtils;
 import pl.sda.jdbc.hibernate.entity.Author;
 import pl.sda.jdbc.hibernate.entity.Book;
 import pl.sda.jdbc.hibernate.entity.Category;
@@ -14,11 +14,17 @@ import java.util.Set;
 
 /**
  * Hello world!
+ *
  */
-public class App {
-    public static void main(String[] args) {
+public class App
+{
+    public static void main( String[] args )
+    {
+//     \   SessionFactory sf = new Configuration()
+//                .configure()
+//                .buildSessionFactory();
 
-        Session session = HibernateUtil.getSession();
+        Session session = HibernateUtils.getSession();
 
         User user = new User("Jan", "Kowalski");
 
@@ -27,21 +33,21 @@ public class App {
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
+        }catch (Exception e){
+            if(transaction != null){
                 transaction.rollback();
             }
             e.printStackTrace();
-        } finally {
-            if (session != null) {
-                HibernateUtil.closeSession();
+        }finally {
+            if(session != null){
+                HibernateUtils.closeSession();
             }
         }
-        session = HibernateUtil.getSession();
+        session = HibernateUtils.getSession();
         transaction = session.beginTransaction();
         session.save(new User("jan", "kowalski"));
         transaction.commit();
-        HibernateUtil.closeSession();
+        HibernateUtils.closeSession();
 
         Category category = new Category();
         category.setName("Fantastyka");
@@ -55,5 +61,21 @@ public class App {
 
         BookDAO bookDAO = new BookDAO();
         bookDAO.insertBook(book);
+
+
+
+        for(Book b: bookDAO.findAllBooks()){
+            System.out.println("Ksiazka: " + b.getTitle());
+            System.out.println("Kategoria: " + b.getCategory().getName());
+
+            for(Author author: b.getAuthors()){
+                System.out.println("Autor: " + author.getName());
+            }
+
+            System.out.println("=========");
+        }
+
+
+
     }
 }

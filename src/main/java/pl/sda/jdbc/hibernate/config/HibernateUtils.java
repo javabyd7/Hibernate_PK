@@ -1,11 +1,10 @@
 package pl.sda.jdbc.hibernate.config;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateUtil {
+public class HibernateUtils {
 
     private static SessionFactory sf =
             new Configuration()
@@ -31,7 +30,7 @@ public class HibernateUtil {
 
     public static SessionFactory getSessionFactory(){
         if(sf == null){
-            sf = (SessionFactory) new HibernateUtil();
+            sf = (SessionFactory) new HibernateUtils();
         }
         return sf;
     }

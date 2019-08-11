@@ -1,8 +1,6 @@
 package pl.sda.jdbc.hibernate.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +9,7 @@ import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+@Getter
 public class Author {
     @Id
     @GeneratedValue
@@ -27,5 +23,9 @@ public class Author {
     public Author(String lastname, String name) {
         this.lastname = lastname;
         this.name = name;
+    }
+
+    public Author() {
+
     }
 }

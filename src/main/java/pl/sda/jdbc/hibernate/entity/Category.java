@@ -1,8 +1,7 @@
 package pl.sda.jdbc.hibernate.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +10,8 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Category {
     @Id
     @GeneratedValue
